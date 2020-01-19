@@ -1,0 +1,11 @@
+*.sqlite3
+**/.DS_Store
+.idea/
+covers/
+**/__pycache__
+*.log
+*.pickle
+*.pid
+*.out
+.ipynb_checkpoints
+venv/
