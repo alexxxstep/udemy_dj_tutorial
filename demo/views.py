@@ -1,6 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-# Create your views here.
+from django.views import View
+from .models import Book
+
+
 
 def first(request):
-    return HttpResponse('First message from views')
+    books = Book.objects.all()
+
+    return render(request, 'f_temp.html',{'books': books})

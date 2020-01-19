@@ -9,3 +9,4 @@ covers/
 *.out
 .ipynb_checkpoints
 venv/
+*migrations/
