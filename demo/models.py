@@ -9,6 +9,7 @@ class BookNumber(models.Model):
     def __str__(self):
         return self.isbn_10
 
+
 class Book(models.Model):
     BOOKS = (('HB', 'Hobbit',),
              ('LOTR', 'Lord of the ring'))
@@ -25,7 +26,6 @@ class Book(models.Model):
     published = models.DateField(blank=True, null=True, default=None)
     is_published = models.BooleanField(default=False)
     cover = models.ImageField(upload_to='covers/', blank=True, default='')
-    author = models.CharField(max_length=150, blank=True)
 
     number = models.OneToOneField(BookNumber, null=True, blank=True, on_delete=models.CASCADE)
 
@@ -33,9 +33,19 @@ class Book(models.Model):
         return self.title
 
 
+class Character(models.Model):
+    name = models.CharField(max_length=50)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE,
+                             related_name='characters')
+
+    def __str__(self):
+        return self.name
+
+
 class Author(models.Model):
-    name = models.CharField(max_length=150, blank=False)
+    name = models.CharField(max_length=50, blank=False)
+    surname = models.CharField(max_length=50, blank=True, default='')
+    books = models.ManyToManyField(Book, related_name='authors')
 
-
-
-
+    def __str__(self):
+        return ' '.join([self.name, self.surname])
